@@ -18,6 +18,7 @@ model users {
   name      String
   email     String   @unique
   password  String
+  age       Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
