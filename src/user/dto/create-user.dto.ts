@@ -4,7 +4,13 @@ export class CreateUserDto {
   @IsNotEmpty({
     message: 'Name is required',
   })
-  nome: string;
-  senha: string;
+  name: string;
+  @IsNotEmpty({
+    message: 'Password is required',
+  })
+  password: string;
+  @IsNotEmpty({
+    message: 'Email is required',
+  })
   email: string;
 }
