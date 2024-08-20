@@ -14,12 +14,13 @@ datasource db {
 }
 
 model users {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String     @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  reserva   reservas[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model categorias {
@@ -30,10 +31,21 @@ model categorias {
 }
 
 model mesas {
-  id        Int      @id @default(autoincrement())
-  code      String   @unique
+  id        Int        @id @default(autoincrement())
+  code      String     @unique
   seats     Int
   status    Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  reserva   reservas[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model reservas {
+  id        Int      @id @default(autoincrement())
+  dateStart DateTime
+  dateEnd   DateTime
+  mesa      mesas    @relation(fields: [mesaId], references: [id])
+  mesaId    Int
+  user      users    @relation(fields: [userID], references: [id])
+  userID    Int
 }
