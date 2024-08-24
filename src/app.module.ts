@@ -8,8 +8,8 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
   controllers: [],
   providers: [
     {
-    provide: 'APP_GUARD',
-    useClass: JwtAuthGuard,
+      provide: 'APP_GUARD',
+      useClass: JwtAuthGuard,
     },
   ],
 })
