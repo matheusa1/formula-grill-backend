@@ -18,7 +18,6 @@ model users {
   name      String
   email     String   @unique
   password  String
-  age       Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -29,13 +28,14 @@ model categorias {
   imagem    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  pratos    pratos[]
 }
 
 model pratos {
   id          Int        @id @default(autoincrement())
-  nome        String   
+  nome        String
   descricao   String     @unique
-  categoria   categorias @relation(fields: [categoriaId], references: [id]) 
+  categoria   categorias @relation(fields: [categoriaId], references: [id])
   categoriaId Int
   imagem      String
   createdAt   DateTime   @default(now())
