@@ -9,27 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserDto = void 0;
+exports.CreateMesaDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateUserDto {
+class CreateMesaDto {
 }
-exports.CreateUserDto = CreateUserDto;
+exports.CreateMesaDto = CreateMesaDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)({
-        message: 'Nome é um campo obrigatório',
+        message: 'Código da mesa é obrigatório',
+    }),
+    (0, class_validator_1.IsString)({
+        message: 'O código da mesa deve ser uma string',
     }),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "name", void 0);
+], CreateMesaDto.prototype, "code", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({
-        message: 'Senha é um campo obrigatório',
+    (0, class_validator_1.IsInt)({
+        message: 'A quantidade de assentos deve ser um número inteiro',
     }),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "password", void 0);
+    (0, class_validator_1.Min)(1, {
+        message: 'A quantidade de assentos deve ser pelo menos 1',
+    }),
+    __metadata("design:type", Number)
+], CreateMesaDto.prototype, "seats", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({
-        message: 'E-mail é um campo obrigatório',
+    (0, class_validator_1.IsBoolean)({
+        message: 'A disponibilidade deve ser um valor booleano',
     }),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "email", void 0);
-//# sourceMappingURL=create-user.dto.js.map
+    __metadata("design:type", Boolean)
+], CreateMesaDto.prototype, "status", void 0);
+//# sourceMappingURL=create-mesa.dto.js.map

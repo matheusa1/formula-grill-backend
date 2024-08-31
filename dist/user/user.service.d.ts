@@ -21,6 +21,6 @@ export declare class UserService {
         updatedAt: Date;
     }[]>;
     findOne(id: number): string;
-    update(id: number, updateUserDto: UpdateUserDto): string;
+    update(id: number, updateUserDto: UpdateUserDto): UpdateUserDto;
     remove(id: number): string;
 }

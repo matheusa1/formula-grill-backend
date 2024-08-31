@@ -45,7 +45,7 @@ let UserService = class UserService {
         return `This action returns a #${id} user`;
     }
     update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
+        return updateUserDto;
     }
     remove(id) {
         return `This action removes a #${id} user`;

@@ -21,6 +21,6 @@ export declare class UserController {
         updatedAt: Date;
     }[]>;
     findOne(id: string): string;
-    update(id: string, updateUserDto: UpdateUserDto): string;
+    update(id: string, updateUserDto: UpdateUserDto): UpdateUserDto;
     remove(id: string): string;
 }
