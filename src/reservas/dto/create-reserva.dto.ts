@@ -1,36 +1,19 @@
-// dto/create-reserva.dto.ts
-import { IsNotEmpty, IsInt, IsDate } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsDateString, IsOptional } from 'class-validator';
 
 export class CreateReservaDto {
-  @IsInt({
-    message: 'O ID da mesa deve ser um número inteiro',
-  })
-  @IsNotEmpty({
-    message: 'O ID da mesa é obrigatório',
-  })
+  @IsNumber()
   mesaId: number;
 
-  @IsDate({
-    message: 'A data de início deve ser uma data válida',
-  })
-  @IsNotEmpty({
-    message: 'A data de início é obrigatória',
-  })
-  dateStart: Date;
+  @IsDateString()
+  dateStart: string;
 
-  @IsDate({
-    message: 'A data de término deve ser uma data válida',
-  })
-  @IsNotEmpty({
-    message: 'A data de término é obrigatória',
-  })
-  dateEnd: Date;
+  @IsDateString()
+  dateEnd: string;
 
-  @IsInt({
-    message: 'O ID do usuário deve ser um número inteiro',
-  })
-  @IsNotEmpty({
-    message: 'O ID do usuário é obrigatório',
-  })
-  userID: number;
+  @IsOptional()
+  @IsString()
+  phone?: string; // Campo para telefone (opcional)
+
+  @IsNumber()
+  seatCount: number; // Campo para quantidade de assentos
 }

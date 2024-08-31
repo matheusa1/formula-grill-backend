@@ -41,11 +41,13 @@ model mesas {
 }
 
 model reservas {
-  id        Int      @id @default(autoincrement())
-  dateStart DateTime
-  dateEnd   DateTime
-  mesa      mesas    @relation(fields: [mesaId], references: [id])
-  mesaId    Int
-  user      users    @relation(fields: [userID], references: [id])
-  userID    Int
+  id         Int      @id @default(autoincrement())
+  dateStart  DateTime
+  dateEnd    DateTime
+  mesa       mesas    @relation(fields: [mesaId], references: [id])
+  mesaId     Int
+  user       users    @relation(fields: [userID], references: [id])
+  userID     Int
+  phone      String?  
+  seatCount  Int     
 }
