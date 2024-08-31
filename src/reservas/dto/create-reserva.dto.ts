@@ -1,18 +1,17 @@
-import { IsNotEmpty, IsNumber, IsString, IsDateString, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsDateString } from 'class-validator';
 
 export class CreateReservaDto {
   @IsNumber()
   mesaId: number;
 
   @IsDateString()
-  dateStart: string;
+  dateStart: Date;
 
   @IsDateString()
-  dateEnd: string;
+  dateEnd: Date;
 
-  @IsOptional()
   @IsString()
-  phone?: string; // Campo para telefone (opcional)
+  phone: string; // Campo para telefone (opcional)
 
   @IsNumber()
   seatCount: number; // Campo para quantidade de assentos

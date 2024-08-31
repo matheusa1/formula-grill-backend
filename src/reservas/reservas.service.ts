@@ -2,14 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
-
-
+import { UserFromJwt } from 'src/auth/models/UserFromJwt';
 
 @Injectable()
 export class ReservasService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createReservaDto: CreateReservaDto) {
+  async create(createReservaDto: CreateReservaDto, user: UserFromJwt) {
     const { mesaId, dateStart, dateEnd, phone, seatCount } = createReservaDto;
 
     // Convert date strings to Date objects
@@ -17,30 +16,56 @@ export class ReservasService {
     const endDate = new Date(dateEnd);
 
     // Verifica se a mesa está disponível por dia e hora
-    const isAvailable = await this.checkAvailability(mesaId, startDate, endDate);
+    const isAvailable = await this.checkAvailability(
+      mesaId,
+      startDate,
+      endDate,
+    );
     if (!isAvailable) {
-      return { status: 'error', message: 'Mesa não disponível no horário solicitado.' };
+      return {
+        status: 'error',
+        message: 'Mesa não disponível no horário solicitado.',
+      };
     }
 
     // Salvando a reserva no banco de dados
     try {
       const newReserva = await this.prisma.reservas.create({
         data: {
-          //mesaId,
           dateStart: startDate,
           dateEnd: endDate,
           phone,
           seatCount,
+
+          mesa: {
+            connect: {
+              id: mesaId,
+            },
+          },
+
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
         },
       });
 
-      return { status: 'success', message: 'Reserva criada com sucesso.', data: newReserva };
+      return {
+        status: 'success',
+        message: 'Reserva criada com sucesso.',
+        data: newReserva,
+      };
     } catch (error) {
       return { status: 'error', message: 'Erro ao criar reserva.' };
     }
   }
 
-  private async checkAvailability(mesaId: number, dateStart: Date, dateEnd: Date): Promise<boolean> {
+  private async checkAvailability(
+    mesaId: number,
+    dateStart: Date,
+    dateEnd: Date,
+  ): Promise<boolean> {
     const conflictingReserva = await this.prisma.reservas.findFirst({
       where: {
         mesaId,
@@ -57,7 +82,11 @@ export class ReservasService {
   }
 
   async findAll() {
-    return this.prisma.reservas.findMany();
+    const res = await this.prisma.reservas.findMany();
+
+    console.log({ res });
+
+    return res;
   }
 
   async findOne(id: number) {
@@ -78,7 +107,11 @@ export class ReservasService {
       data: { ...updateReservaDto },
     });
 
-    return { status: 'success', message: 'Reserva atualizada com sucesso.', data: updatedReserva };
+    return {
+      status: 'success',
+      message: 'Reserva atualizada com sucesso.',
+      data: updatedReserva,
+    };
   }
 
   async remove(id: number) {

@@ -39,6 +39,8 @@ CREATE TABLE "reservas" (
     "dateEnd" TIMESTAMP(3) NOT NULL,
     "mesaId" INTEGER NOT NULL,
     "userID" INTEGER NOT NULL,
+    "phone" TEXT,
+    "seatCount" INTEGER NOT NULL,
 
     CONSTRAINT "reservas_pkey" PRIMARY KEY ("id")
 );

@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Request,
+} from '@nestjs/common';
 import { ReservasService } from './reservas.service';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
@@ -8,8 +17,10 @@ export class ReservasController {
   constructor(private readonly reservasService: ReservasService) {}
 
   @Post()
-  create(@Body() createReservaDto: CreateReservaDto) {
-    return this.reservasService.create(createReservaDto);
+  create(@Body() createReservaDto: CreateReservaDto, @Request() req) {
+    const user = req.user;
+
+    return this.reservasService.create(createReservaDto, user);
   }
 
   @Get()
