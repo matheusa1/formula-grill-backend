@@ -9,6 +9,7 @@ export declare class UserController {
         name: string;
         email: string;
         password: string;
+        role: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
@@ -17,9 +18,11 @@ export declare class UserController {
         name: string;
         email: string;
         password: string;
+        role: string;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
+    getMe(req: any): any;
     findOne(id: string): string;
     update(id: string, updateUserDto: UpdateUserDto): UpdateUserDto;
     remove(id: string): string;

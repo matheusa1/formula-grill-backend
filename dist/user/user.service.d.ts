@@ -9,6 +9,7 @@ export declare class UserService {
         name: string;
         email: string;
         password: string;
+        role: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
@@ -17,6 +18,7 @@ export declare class UserService {
         name: string;
         email: string;
         password: string;
+        role: string;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
