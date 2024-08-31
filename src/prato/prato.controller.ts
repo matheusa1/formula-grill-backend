@@ -1,10 +1,17 @@
-
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PratoService } from './prato.service';
 import { CreatePratoDto } from './dto/create-prato.dto';
 import { UpdatePratoDto } from './dto/update-prato.dto';
 
-@Controller('Prato')
+@Controller('pratos')
 export class PratoController {
   constructor(private readonly PratoService: PratoService) {}
 

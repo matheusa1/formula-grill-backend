@@ -7,4 +7,4 @@ import { PrismaService } from 'src/database/prisma.service';
   controllers: [PratoController],
   providers: [PratoService, PrismaService],
 })
-export class MesasModule {}
+export class PratoModule {}

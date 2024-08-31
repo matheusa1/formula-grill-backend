@@ -21,6 +21,19 @@ CREATE TABLE "categorias" (
 );
 
 -- CreateTable
+CREATE TABLE "pratos" (
+    "id" SERIAL NOT NULL,
+    "nome" TEXT NOT NULL,
+    "descricao" TEXT NOT NULL,
+    "categoriaId" INTEGER NOT NULL,
+    "imagem" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "pratos_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "mesas" (
     "id" SERIAL NOT NULL,
     "code" TEXT NOT NULL,
@@ -65,7 +78,16 @@ CREATE TABLE "chef" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "pratos_descricao_key" ON "pratos"("descricao");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "mesas_code_key" ON "mesas"("code");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "chef_name_key" ON "chef"("name");
+
+-- AddForeignKey
+ALTER TABLE "pratos" ADD CONSTRAINT "pratos_categoriaId_fkey" FOREIGN KEY ("categoriaId") REFERENCES "categorias"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "reservas" ADD CONSTRAINT "reservas_mesaId_fkey" FOREIGN KEY ("mesaId") REFERENCES "mesas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

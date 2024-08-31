@@ -1,18 +1,32 @@
-import { IsNotEmpty, IsInt, IsBoolean, Min } from 'class-validator';
+import { IsNotEmpty, IsInt, IsString, IsUrl } from 'class-validator';
 
 export class CreatePratoDto {
-    @IsNotEmpty({
-      message: 'Descrição deve ser preenchida!',
-    })
-    descricao: string;
+  @IsNotEmpty({
+    message: 'Descrição deve ser preenchida!',
+  })
+  description: string;
 
-    @IsNotEmpty({
-        message: 'Nome deve ser preenchido!',
-      })
-    nome: string;
+  @IsNotEmpty({
+    message: 'Nome deve ser preenchido!',
+  })
+  name: string;
 
-    @IsNotEmpty({
-        message: 'Categoria deve ser preenchida!',
-      })
-    categoria: string;
-  }
+  @IsNotEmpty({
+    message: 'Categoria deve ser preenchida!',
+  })
+  @IsInt({
+    message: 'Categoria deve ser um número inteiro!',
+  })
+  category: number;
+
+  @IsString({
+    message: 'Imagem deve ser uma string!',
+  })
+  @IsUrl(
+    {},
+    {
+      message: 'Imagem deve ser uma URL válida!',
+    },
+  )
+  image: string;
+}

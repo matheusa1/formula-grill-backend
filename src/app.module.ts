@@ -5,9 +5,19 @@ import { MesasModule } from './mesas/mesas.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { ChefsModule } from './chefs/chefs.module';
 import { ReservasModule } from './reservas/reservas.module';
+import { CategoriasModule } from './categorias/categorias.module';
+import { PratoModule } from './prato/prato.module';
 
 @Module({
-  imports: [UserModule, AuthModule, MesasModule, ReservasModule, ChefsModule],
+  imports: [
+    UserModule,
+    AuthModule,
+    MesasModule,
+    ReservasModule,
+    ChefsModule,
+    CategoriasModule,
+    PratoModule,
+  ],
   controllers: [],
   providers: [
     {
