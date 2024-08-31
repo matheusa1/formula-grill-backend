@@ -9,7 +9,6 @@ export declare class UserService {
         name: string;
         email: string;
         password: string;
-        userType: import("@prisma/client").$Enums.UserType;
         createdAt: Date;
         updatedAt: Date;
     }>;
@@ -18,11 +17,10 @@ export declare class UserService {
         name: string;
         email: string;
         password: string;
-        userType: import("@prisma/client").$Enums.UserType;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
     findOne(id: number): string;
-    update(id: number, updateUserDto: UpdateUserDto): string;
+    update(id: number, updateUserDto: UpdateUserDto): UpdateUserDto;
     remove(id: number): string;
 }

@@ -58,12 +58,12 @@ model reservas {
 }
 
 model chef {
-  id               Int      @id @default(autoincrement())
-  nome             String
-  biografia        String
-  cargo            String
-  imagem           String
-  tempoExperiencia Int
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  name              String   @unique
+  bio               String
+  role              String
+  image             String
+  yearsOfExperience Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

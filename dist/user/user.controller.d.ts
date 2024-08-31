@@ -9,7 +9,6 @@ export declare class UserController {
         name: string;
         email: string;
         password: string;
-        userType: import("@prisma/client").$Enums.UserType;
         createdAt: Date;
         updatedAt: Date;
     }>;
@@ -18,11 +17,10 @@ export declare class UserController {
         name: string;
         email: string;
         password: string;
-        userType: import("@prisma/client").$Enums.UserType;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
     findOne(id: string): string;
-    update(id: string, updateUserDto: UpdateUserDto): string;
+    update(id: string, updateUserDto: UpdateUserDto): UpdateUserDto;
     remove(id: string): string;
 }

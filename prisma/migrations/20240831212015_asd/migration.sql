@@ -37,12 +37,28 @@ CREATE TABLE "reservas" (
     "id" SERIAL NOT NULL,
     "dateStart" TIMESTAMP(3) NOT NULL,
     "dateEnd" TIMESTAMP(3) NOT NULL,
+    "phone" TEXT NOT NULL,
+    "seatCount" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "mesaId" INTEGER NOT NULL,
     "userID" INTEGER NOT NULL,
-    "phone" TEXT,
-    "seatCount" INTEGER NOT NULL,
 
     CONSTRAINT "reservas_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "chef" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "bio" TEXT NOT NULL,
+    "role" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+    "yearsOfExperience" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "chef_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
