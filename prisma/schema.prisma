@@ -26,9 +26,21 @@ model users {
 
 model categorias {
   id        Int      @id @default(autoincrement())
-  nome      String
+  name      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  dishes    pratos[]
+}
+
+model pratos {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String
+  category    categorias @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  image       String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 model mesas {

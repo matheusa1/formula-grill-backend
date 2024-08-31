@@ -14,12 +14,22 @@ const mesas_module_1 = require("./mesas/mesas.module");
 const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 const chefs_module_1 = require("./chefs/chefs.module");
 const reservas_module_1 = require("./reservas/reservas.module");
+const categorias_module_1 = require("./categorias/categorias.module");
+const prato_module_1 = require("./prato/prato.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_module_1.UserModule, auth_module_1.AuthModule, mesas_module_1.MesasModule, reservas_module_1.ReservasModule, chefs_module_1.ChefsModule],
+        imports: [
+            user_module_1.UserModule,
+            auth_module_1.AuthModule,
+            mesas_module_1.MesasModule,
+            reservas_module_1.ReservasModule,
+            chefs_module_1.ChefsModule,
+            categorias_module_1.CategoriasModule,
+            prato_module_1.PratoModule,
+        ],
         controllers: [],
         providers: [
             {
