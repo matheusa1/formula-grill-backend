@@ -9,23 +9,24 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model users {
-  id        Int      @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String     @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  reserva   reservas[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model categorias {
   id        Int      @id @default(autoincrement())
   nome      String
-  imagem    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   pratos    pratos[]
@@ -40,4 +41,41 @@ model pratos {
   imagem      String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+}
+
+model mesas {
+  id        Int        @id @default(autoincrement())
+  code      String     @unique
+  seats     Int
+  status    Boolean
+  reserva   reservas[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model reservas {
+  id        Int      @id @default(autoincrement())
+  dateStart DateTime
+  dateEnd   DateTime
+  phone     String
+  seatCount Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mesaId Int
+  mesa   mesas @relation(fields: [mesaId], references: [id])
+
+  userID Int
+  user   users @relation(fields: [userID], references: [id])
+}
+
+model chef {
+  id                Int      @id @default(autoincrement())
+  name              String   @unique
+  bio               String
+  role              String
+  image             String
+  yearsOfExperience Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
