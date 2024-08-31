@@ -1,3 +1,4 @@
+// dto/create-mesa.dto.ts
 import { IsNotEmpty, IsInt, IsBoolean, Min, IsString } from 'class-validator';
 
 export class CreateMesaDto {
@@ -5,7 +6,7 @@ export class CreateMesaDto {
     message: 'Código da mesa é obrigatório',
   })
   @IsString({
-    message: 'O código da mesa deve ser uma string', //arrumando bug solicitado pelo matheus
+    message: 'O código da mesa deve ser uma string',
   })
   code: string;
 

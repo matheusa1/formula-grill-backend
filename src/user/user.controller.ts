@@ -1,3 +1,4 @@
+import { IsPublic } from './../decorators/is-public.decorator';
 import {
   Controller,
   Get,

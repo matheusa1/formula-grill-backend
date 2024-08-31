@@ -5,7 +5,7 @@ import { MesasModule } from './mesas/mesas.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
-  imports: [UserModule, AuthModule, MesasModule],
+  imports: [UserModule, AuthModule, MesasModule, ReservasModule],
   controllers: [],
   providers: [
     {
