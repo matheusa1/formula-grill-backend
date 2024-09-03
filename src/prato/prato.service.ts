@@ -39,12 +39,19 @@ export class PratoService {
   }
 
   findAll() {
-    return this.prisma.pratos.findMany();
+    return this.prisma.pratos.findMany({
+      include: {
+        category: true,
+      },
+    });
   }
 
   async findOne(id: number) {
     const prato = await this.prisma.pratos.findUnique({
       where: { id },
+      include: {
+        category: true,
+      },
     });
 
     if (!prato) {
@@ -64,6 +71,21 @@ export class PratoService {
     if (!prato) {
       throw new NotFoundException(
         `Prato não foi encontrado...Igual o mundial de pilotos do Lando Norris`,
+      );
+    }
+
+    const alreadyExists = await this.prisma.pratos.findFirst({
+      where: {
+        name: UpdatePratoDto.name,
+        id: {
+          not: id,
+        },
+      },
+    });
+
+    if (alreadyExists) {
+      throw new ConflictException(
+        `Já existe um prato com o nome ${UpdatePratoDto.name}`,
       );
     }
 
