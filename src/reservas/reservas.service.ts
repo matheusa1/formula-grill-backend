@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateReservaDto } from './dto/create-reserva.dto';
 import { UpdateReservaDto } from './dto/update-reserva.dto';
@@ -9,24 +9,37 @@ export class ReservasService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createReservaDto: CreateReservaDto, user: UserFromJwt) {
-    const { mesaId, dateStart, dateEnd, phone, seatCount } = createReservaDto;
+    const { dateStart, dateEnd, phone, seatCount, name } = createReservaDto;
 
     // Convert date strings to Date objects
     const startDate = new Date(dateStart);
     const endDate = new Date(dateEnd);
 
-    // Verifica se a mesa está disponível por dia e hora
-    const isAvailable = await this.checkAvailability(
-      mesaId,
-      startDate,
-      endDate,
-    );
-    if (!isAvailable) {
-      return {
-        status: 'error',
-        message: 'Mesa não disponível no horário solicitado.',
-      };
+    const getTableAvailable = await this.prisma.mesas.findMany({
+      where: {
+        seats: {
+          gte: seatCount,
+        },
+        reserva: {
+          none: {
+            OR: [
+              {
+                dateStart: { lt: endDate },
+                dateEnd: { gt: startDate },
+              },
+            ],
+          },
+        },
+      },
+    });
+
+    if (getTableAvailable.length === 0) {
+      throw new ConflictException(
+        'Nenhuma mesa disponível no horário solicitado.',
+      );
     }
+
+    const mesaId = getTableAvailable[0].id;
 
     // Salvando a reserva no banco de dados
     try {
@@ -36,6 +49,7 @@ export class ReservasService {
           dateEnd: endDate,
           phone,
           seatCount,
+          name: name,
 
           mesa: {
             connect: {
@@ -51,13 +65,9 @@ export class ReservasService {
         },
       });
 
-      return {
-        status: 'success',
-        message: 'Reserva criada com sucesso.',
-        data: newReserva,
-      };
+      return newReserva;
     } catch (error) {
-      return { status: 'error', message: 'Erro ao criar reserva.' };
+      throw new Error(error);
     }
   }
 
@@ -126,5 +136,18 @@ export class ReservasService {
     });
 
     return { status: 'success', message: 'Reserva removida com sucesso.' };
+  }
+
+  async findMyReservations(user: UserFromJwt) {
+    return await this.prisma.reservas.findMany({
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
+      orderBy: {
+        dateStart: 'desc',
+      },
+    });
   }
 }
