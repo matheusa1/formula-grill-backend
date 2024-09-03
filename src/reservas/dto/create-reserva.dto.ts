@@ -1,8 +1,8 @@
 import { IsNumber, IsString, IsDateString } from 'class-validator';
 
 export class CreateReservaDto {
-  @IsNumber()
-  mesaId: number;
+  @IsString()
+  name: string; // Campo para nome do cliente
 
   @IsDateString()
   dateStart: Date;
