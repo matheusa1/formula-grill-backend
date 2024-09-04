@@ -35,6 +35,9 @@ export class PratoService {
           },
         },
       },
+      include: {
+        category: true,
+      },
     });
   }
 
@@ -99,6 +102,9 @@ export class PratoService {
             id: UpdatePratoDto.category,
           },
         },
+      },
+      include: {
+        category: true,
       },
     });
   }
