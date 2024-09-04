@@ -1,0 +1,31 @@
+
+FROM node:20.17.0
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install project dependencies
+RUN npm install -g pnpm
+RUN pnpm i
+
+# Copy the rest of the application source code to the container
+COPY . .
+
+# Expose the port your Nest.js application is listening on
+EXPOSE 3333
+
+# build the project
+RUN pnpm build
+
+# create env file
+RUN echo "JWT_SECRET=secret" > .env
+RUN echo "POSTGRES_PRISMA_URL=postgres://postgres:password@localhost:5432/formula-grill?sslmode=disable&connect_timeout=5" >> .env
+RUN echo "POSTGRES_URL_NON_POOLING=postgres://postgres:password@localhost:5432/formula-grill?sslmode=disable&connect_timeout=5" >> .env
+ 
+ADD startLocal.sh /
+RUN chmod +x /startLocal.sh
+
+# Command to start your Nest.js application
+CMD ["/startLocal.sh"]
