@@ -1,6 +1,6 @@
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../database/prisma.service';
 export declare class UserService {
     private readonly prisma;
     constructor(prisma: PrismaService);

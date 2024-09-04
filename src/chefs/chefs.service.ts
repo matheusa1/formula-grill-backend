@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { CreateChefDto } from './dto/create-chef.dto';
 import { UpdateChefDto } from './dto/update-chef.dto';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../database/prisma.service';
 
 @Injectable()
 export class ChefsService {
