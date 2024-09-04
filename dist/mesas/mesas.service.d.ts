@@ -1,6 +1,6 @@
 import { CreateMesaDto } from './dto/create-mesa.dto';
 import { UpdateMesaDto } from './dto/update-mesa.dto';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../database/prisma.service';
 export declare class MesasService {
     private readonly prisma;
     constructor(prisma: PrismaService);
