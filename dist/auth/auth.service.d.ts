@@ -1,7 +1,7 @@
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../user/entities/user.entity';
 import { UserToken } from './models/UserToken';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../database/prisma.service';
 export declare class AuthService {
     private readonly jwtService;
     private readonly prisma;
