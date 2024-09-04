@@ -60,6 +60,7 @@ model reservas {
   dateEnd   DateTime
   phone     String
   seatCount Int
+  name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

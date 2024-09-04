@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { CategoriasService } from './categorias.service';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
+import { IsPublic } from 'src/decorators/is-public.decorator';
 
 @Controller('categorias')
 export class CategoriasController {
@@ -11,6 +12,7 @@ export class CategoriasController {
     return this.categoriasService.create(createCategoriaDto);
   }
 
+  @IsPublic()
   @Get()
   findAll() {
     return this.categoriasService.findAll();

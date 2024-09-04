@@ -42,4 +42,11 @@ export class ReservasController {
   remove(@Param('id') id: string) {
     return this.reservasService.remove(+id);
   }
+
+  @Get('user/me')
+  findMyReservations(@Request() req) {
+    const user = req.user;
+
+    return this.reservasService.findMyReservations(user);
+  }
 }
