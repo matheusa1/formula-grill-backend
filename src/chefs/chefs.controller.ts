@@ -10,7 +10,7 @@ import {
 import { ChefsService } from './chefs.service';
 import { CreateChefDto } from './dto/create-chef.dto';
 import { UpdateChefDto } from './dto/update-chef.dto';
-import { IsPublic } from 'src/decorators/is-public.decorator';
+import { IsPublic } from '../decorators/is-public.decorator';
 
 @Controller('chefs')
 export class ChefsController {
