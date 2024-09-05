@@ -1,2 +1,3 @@
-pnpm prisma migrate dev
+pnpm prisma migrate deploy
+pnpm prisma generate
 pnpm start:prod
