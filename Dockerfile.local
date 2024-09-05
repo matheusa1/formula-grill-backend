@@ -16,9 +16,6 @@ COPY . .
 # Expose the port your Nest.js application is listening on
 EXPOSE 3333
 
-# build the project
-RUN pnpm build
-
 # create env file
 RUN echo "JWT_SECRET=secret" > .env
 RUN echo "POSTGRES_PRISMA_URL=postgres://postgres:password@localhost:5432/formula-grill?sslmode=disable&connect_timeout=5" >> .env
